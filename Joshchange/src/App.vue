@@ -1,52 +1,46 @@
 <script>
-import Calculator from "./components/test.vue";
-import Orderbook from "./components/Orderbook.vue";
+import OrderbookBids from "./components/Orderbook.vue";
+import OrderbookAsks from "./components/OrderbookAsks.vue";
+import Topbarmenu from "./components/Navbar.vue";
+import Chart from "./components/Chart.vue";
 export default {
 name: 'App',
   components: {
-    Calculator,
-    Orderbook
+    OrderbookBids,
+		OrderbookAsks,
+		Topbarmenu,
+		Chart,
   }
 }
 
 </script>
-
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-
-  </header>
-  <div id="app">
-    <Calculator/>
-  </div>
-
-
-  <div id="myOrderbookBids">
-    <Orderbook/>
-  </div>
+	<Chart/>
+		<div class="orderbook-container">
+			<div class="orderbook-child bids"><OrderbookAsks/></div>
+			<div class="orderbook-child asks"><OrderbookBids/></div>
+		</div>
 
 </template>
 
 <style scoped>
-header {
-  line-height: 1.5;
+
+.orderbook-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 20px;
+		position: relative;
+		right: 0;
 }
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
+.orderbook-child {
+} 
 
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
+#page {
+	position:relative;
 
 }
+
+
+
 </style>

@@ -23,8 +23,8 @@ export default {
   setup() {
     return {
       columnDefs: [
-        { field: "bids", width:149 },
-        { field: "price", width:149},
+        { field: "asks", width:149 },
+        { field: "price", width: 149 },
       ],
       gridApi: null,
       columnApi: null,
@@ -39,16 +39,15 @@ export default {
 		},
 		getOrderbookData() {
     		axios.get("http://localhost:8080/orderbook/btcusd").then(({ data }) => 
-				{const rowDataBids = [];
-    		const bids = data["bids"]["prices"];
-    		for (var key in bids) {
-      		var quantity = bids[key]["volume"];
-      		var row = {bids: quantity,price: key};
-      		rowDataBids.push(row);
+				{const rowDataAsks = [];
+    		const asks = data["asks"]["prices"];
+    		for (var key in asks) {
+      		var quantity = asks[key]["volume"];
+      		var row = {asks: quantity,price: key};
+      		rowDataAsks.push(row);
     		}
 				var params = {};
-				console.log(rowDataBids)
-				this.gridApi.setRowData(rowDataBids);
+				this.gridApi.setRowData(rowDataAsks);
 				});
 		}
 		
@@ -60,11 +59,3 @@ export default {
 	}
 };
 </script>
-<style>
-.ag-theme-alpine {
-    --ag-grid-size: 3px;
-    --ag-list-item-height: 20px;
-}
-
-
- </style>
