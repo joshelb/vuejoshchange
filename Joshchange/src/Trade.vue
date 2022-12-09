@@ -15,7 +15,15 @@ name: 'Trade',
 
 </script>
 <template>
-<router-view />
+  <header>
+    <img src="./assets/JoshchangeLogo.png" style="width:20em; height:5em;" />
+	</header>
+	<Chart/>
+		<div class="orderbook-container">
+			<div class="orderbook-child bids"><OrderbookAsks/></div>
+			<div class="orderbook-child asks"><OrderbookBids/></div>
+		</div>
+
 </template>
 
 <style scoped>

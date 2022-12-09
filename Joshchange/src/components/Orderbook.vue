@@ -16,7 +16,7 @@ import axios from 'axios';
 import { AgGridVue } from "ag-grid-vue3";
 
 export default {
-  name: "App",
+  name: "Trade",
   components: {
     AgGridVue,
   },
