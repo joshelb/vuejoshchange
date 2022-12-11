@@ -52,10 +52,17 @@ export default {
 			console.log(url)
 			axios.get(url).then(({ data }) =>
 			{
+        var res = [];
+        data.forEach(function (item, index) {
+          var candlestick = {
+            x: new Date(parseInt(item[0])*1000),
+            y: [item[1],item[2],item[3],item[4]]
+          }
+          res.push(candlestick); 
+        });
 	   		this.series = [{
-    			data: []
+    			data: res
    			}]
-				console.log(data)
 			});
 		},
 		change_CandlestickData(event) {

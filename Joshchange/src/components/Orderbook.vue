@@ -5,6 +5,7 @@
     :columnDefs="columnDefs"
 		@grid-ready="onGridReady"
     :rowData="rowData"
+    :getRowId="getRowId"
   >
   </ag-grid-vue>
 </template>
@@ -37,9 +38,8 @@ export default {
       this.gridColumnApi = params.columnApi;
 			params.api.setRowData([]);
 		},
-		getOrderbookData() {
-    		axios.get("http://localhost:8080/orderbook/btcusd").then(({ data }) => 
-				{const rowDataBids = [];
+		setOrderbookData(data) {
+				const rowDataBids = [];
     		const bids = data["bids"]["prices"];
     		for (var key in bids) {
       		var quantity = bids[key]["volume"];
@@ -47,16 +47,27 @@ export default {
       		rowDataBids.push(row);
     		}
 				var params = {};
-				console.log(rowDataBids)
 				this.gridApi.setRowData(rowDataBids);
-				});
 		}
 		
 
 	},
 	created () {
-		this.getOrderbookData()
-		setInterval(() => this.getOrderbookData(),1000);
+  var ref = this;
+    this.getRowId = params => params.data.price;
+    var ws = new WebSocket("ws://localhost:8080/orderbook/btcusd");
+    ws.onopen = function() {
+      ws.send("Hello my Fren Tangent");
+    }
+    ws.onmessage = function (evt) {
+      var received_msg = evt.data;
+      console.log(JSON.parse(received_msg)) 
+      ref.setOrderbookData(JSON.parse(received_msg))
+    }
+    ws.onclose= function (evt) {
+      console.log("Websocket Connection to Exchange closed")
+    }
+
 	}
 };
 </script>

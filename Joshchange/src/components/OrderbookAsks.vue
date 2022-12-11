@@ -5,6 +5,7 @@
     :columnDefs="columnDefs"
 		@grid-ready="onGridReady"
     :rowData="rowData"
+    :getRowId="getRowId"
   >
   </ag-grid-vue>
 </template>
@@ -24,7 +25,7 @@ export default {
     return {
       columnDefs: [
         { field: "asks", width:149 },
-        { field: "price", width: 149 },
+        { field: "price", width:149},
       ],
       gridApi: null,
       columnApi: null,
@@ -37,9 +38,8 @@ export default {
       this.gridColumnApi = params.columnApi;
 			params.api.setRowData([]);
 		},
-		getOrderbookData() {
-    		axios.get("http://localhost:8080/orderbook/btcusd").then(({ data }) => 
-				{const rowDataAsks = [];
+		setOrderbookData(data) {
+				const rowDataAsks = [];
     		const asks = data["asks"]["prices"];
     		for (var key in asks) {
       		var quantity = asks[key]["volume"];
@@ -48,14 +48,34 @@ export default {
     		}
 				var params = {};
 				this.gridApi.setRowData(rowDataAsks);
-				});
 		}
 		
 
 	},
 	created () {
-		this.getOrderbookData()
-		setInterval(() => this.getOrderbookData(),1000);
+  var ref = this;
+    this.getRowId = params => params.data.price;
+    var ws = new WebSocket("ws://localhost:8080/orderbook/btcusd");
+    ws.onopen = function() {
+      ws.send("Hello my Fren Tangent");
+    }
+    ws.onmessage = function (evt) {
+      var received_msg = evt.data;
+      console.log(JSON.parse(received_msg)) 
+      ref.setOrderbookData(JSON.parse(received_msg))
+    }
+    ws.onclose= function (evt) {
+      console.log("Websocket Connection to Exchange closed")
+    }
+
 	}
 };
 </script>
+<style>
+.ag-theme-alpine {
+    --ag-grid-size: 3px;
+    --ag-list-item-height: 20px;
+}
+
+
+ </style>

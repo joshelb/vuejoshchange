@@ -10,6 +10,7 @@
     "type-check": "vue-tsc --noEmit"
   },
   "dependencies": {
+    "@formkit/vue": "^1.0.0-beta.12",
     "@revolist/vue-datagrid": "^3.3.0",
     "@revolist/vue3-datagrid": "^3.2.17",
     "ag-grid-community": "^28.2.1",

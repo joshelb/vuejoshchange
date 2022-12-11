@@ -2,6 +2,7 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import Trade from './Trade.vue'
 import { createRouter, createWebHistory } from 'vue-router'
+import { plugin, defaultConfig } from '@formkit/vue'
 
 
 import './assets/main.css'
@@ -17,5 +18,6 @@ const router = createRouter({
 	history: createWebHistory(),
 	routes
 });
-
-createApp(App).use(router).mount('#app')
+var app = createApp(App);
+app.use(router);
+app.use(plugin, defaultConfig).mount('#app')
