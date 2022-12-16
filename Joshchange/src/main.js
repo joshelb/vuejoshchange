@@ -6,9 +6,9 @@ import { plugin, defaultConfig } from '@formkit/vue'
 
 
 import './assets/main.css'
-import "bootstrap/dist/css/bootstrap.min.css"
+import "bootstrap/dist/css/bootstrap.css"
+import 'bootstrap-vue/dist/bootstrap-vue.css'
 
-const Home = { template: '<div>Home</div>' };
 
 const routes = [
 	{ path: "/", component: App },
@@ -20,4 +20,7 @@ const router = createRouter({
 });
 var app = createApp(App);
 app.use(router);
-app.use(plugin, defaultConfig).mount('#app')
+app.use(plugin, defaultConfig);
+var ws = new WebSocket("ws://localhost:8080/orderbook/btcusd");
+app.provide('ws', ws)
+app.mount('#app')

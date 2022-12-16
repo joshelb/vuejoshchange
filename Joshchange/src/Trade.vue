@@ -1,55 +1,48 @@
 <script>
 import OrderbookBids from "./components/Orderbook.vue";
 import OrderbookAsks from "./components/OrderbookAsks.vue";
+import OrderBook from "./components/OrderbookComponent.vue";
 import Topbarmenu from "./components/Navbar.vue";
-import Chart from "./components/Chart.vue";
+import ChartTV from "./components/ChartTV.vue";
 import TradingPanel from "./components/Tradingpanel.vue"
+import Trades from "./components/Trades.vue"
 export default {
 name: 'Trade',
   components: {
-    OrderbookBids,
-		OrderbookAsks,
+		OrderBook,
 		Topbarmenu,
-		Chart,
+		ChartTV,
     TradingPanel,
+		Trades,
   }
 }
 
 </script>
 <template>
-  <header>
-    <img src="./assets/JoshchangeLogo.png" style="width:20em; height:5em;" />
-	</header>
-    <div class = "TradingPanel">
-    <TradingPanel/>
-    </div>
-    <div id="chart">
-	    <Chart/>
-    </div>
-		<div class="orderbook-container">
-			<div class="orderbook-child bids"><OrderbookAsks/></div>
-			<div class="orderbook-child asks"><OrderbookBids/></div>
+<Topbarmenu/>
+<div class="container-fluid">
+		<div class="row top-buffer">
+				<div class = "col-xl">
+					<OrderBook/>
+				</div>
+				<div class="col-xl">
+					<div class="card text-bg-dark" style="border-radius: 0px!important;">
+  					<div class="card-body">
+							<ChartTV/>
+  					</div>
+					</div>
+				</div>
 		</div>
-
+		<div class="row top-buffer">
+			<div class="col-md">
+				<TradingPanel/>
+			</div>
+			<div class="col-md">
+			</div>
+		</div>
+</div>
 </template>
 
 <style scoped>
-
-.orderbook-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-gap: 20px;
-		position: relative;
-		right: 0;
-}
-
-.orderbook-child {
-} 
-
-.chart{
-
-}
-
-
-
+.top-buffer { margin-top:20px; }
 </style>

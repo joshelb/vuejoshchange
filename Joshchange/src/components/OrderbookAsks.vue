@@ -1,7 +1,7 @@
 <template>
   <ag-grid-vue
-    style="width: 300px; height: 300px"
-    class="ag-theme-alpine"
+    style="height: 500px"
+    class="ag-theme-balham-dark"
     :columnDefs="columnDefs"
 		@grid-ready="onGridReady"
     :rowData="rowData"
@@ -12,11 +12,12 @@
 
 <script>
 import "ag-grid-community/styles/ag-grid.css";
-import "ag-grid-community/styles/ag-theme-alpine.css";
+import "ag-grid-community/styles/ag-theme-balham.css";
 import axios from 'axios';
 import { AgGridVue } from "ag-grid-vue3";
 
 export default {
+	inject: ['ws'],
   name: "Trade",
   components: {
     AgGridVue,
@@ -24,10 +25,11 @@ export default {
   setup() {
     return {
       columnDefs: [
-        { field: "asks", width:149 },
-        { field: "price", width:149},
+        { field: "asks", headerName: 'Size'},
+        { field: "price", cellStyle: {color: 'red',},  headerName: 'Price'},
       ],
       gridApi: null,
+  		sizeColumnsToFit: true,
       columnApi: null,
       rowData: [],
     };
@@ -36,6 +38,7 @@ export default {
 		onGridReady(params){
 		  this.gridApi = params.api;
       this.gridColumnApi = params.columnApi;
+			this.gridApi.sizeColumnsToFit()
 			params.api.setRowData([]);
 		},
 		setOrderbookData(data) {
@@ -48,25 +51,31 @@ export default {
     		}
 				var params = {};
 				this.gridApi.setRowData(rowDataAsks);
+		},
+		onWindowResize() {
+    	if (this.gridApi) {
+      	this.gridApi.sizeColumnsToFit();
+    	}
 		}
-		
 
 	},
 	created () {
-  var ref = this;
-    this.getRowId = params => params.data.price;
-    var ws = new WebSocket("ws://localhost:8080/orderbook/btcusd");
-    ws.onopen = function() {
-      ws.send("Hello my Fren Tangent");
-    }
-    ws.onmessage = function (evt) {
-      var received_msg = evt.data;
-      console.log(JSON.parse(received_msg)) 
-      ref.setOrderbookData(JSON.parse(received_msg))
-    }
-    ws.onclose= function (evt) {
-      console.log("Websocket Connection to Exchange closed")
-    }
+		this.getRowId = params => params.data.price;
+	},
+	mounted (){
+    var ref = this;
+    var ws = this.ws;
+		var msg = {Type: "subscribe", Stream: "orderbook", Symbol: "btcusd", Timeframe: "hrqe", Aggregation: "qrehg"}
+		var msg2 = {Type: "subscribe", Stream: "trades", Symbol: "btcusd", Timeframe: "hrqe", Aggregation: "qrehg"}
+		ws.onopen= () => {ws.send(JSON.stringify(msg)), ws.send(JSON.stringify(msg2))}
+		ws.addEventListener('message', function(evt) {
+			var received_msg = evt.data;
+      var parsed=JSON.parse(received_msg);
+      if (parsed["Stream"] == "orderbook") {
+        ref.setOrderbookData(parsed["Data"])
+      }
+		});
+		window.addEventListener('resize', this.onWindowResize);
 
 	}
 };
