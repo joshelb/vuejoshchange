@@ -1,4 +1,5 @@
 <script>
+import auth from "../authconf.js"
 export default{ 
   methods: {
     submitForm(side) {
@@ -12,6 +13,9 @@ export default{
       let url = "http://localhost:8080/order";
       xhr.open("POST",url,true);
       xhr.setRequestHeader("Content-Type", "application/json");
+			var s = 'Bearer ' + localStorage.getItem('access_token')
+			console.log(s)
+			xhr.setRequestHeader('Authorization', s);
       var data = JSON.stringify(order);
       console.log(data)
       xhr.send(data);

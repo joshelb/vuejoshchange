@@ -67,6 +67,7 @@ export default {
     var ws = this.ws;
 		var msg = {Type: "subscribe", Stream: "orderbook", Symbol: "btcusd", Timeframe: "hrqe", Aggregation: "qrehg"}
 		var msg2 = {Type: "subscribe", Stream: "trades", Symbol: "btcusd", Timeframe: "hrqe", Aggregation: "qrehg"}
+		console.log(ws)
 		ws.onopen= () => {ws.send(JSON.stringify(msg)), ws.send(JSON.stringify(msg2))}
 		ws.addEventListener('message', function(evt) {
 			var received_msg = evt.data;

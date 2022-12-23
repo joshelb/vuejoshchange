@@ -14,9 +14,12 @@ name: 'Trade',
 		ChartTV,
     TradingPanel,
 		Trades,
+  },
+
+
+  created () {
   }
 }
-
 </script>
 <template>
 <Topbarmenu/>
