@@ -15,6 +15,7 @@ import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-balham.css";
 import axios from 'axios';
 import { AgGridVue } from "ag-grid-vue3";
+import { Logger } from "ag-grid-community";
 
 export default {
 	inject: ['ws'],
@@ -65,10 +66,11 @@ export default {
 	mounted (){
     var ref = this;
     var ws = this.ws;
-		var msg = {Type: "subscribe", Stream: "orderbook", Symbol: "btcusd", Timeframe: "hrqe", Aggregation: "qrehg"}
-		var msg2 = {Type: "subscribe", Stream: "trades", Symbol: "btcusd", Timeframe: "hrqe", Aggregation: "qrehg"}
+		var msg = {Type: "subscribe", Stream: "orderbook", Symbol: "btcusd", Timeframe: "hrqe", Aggregation: "qrehg", Email: "ewg"}
+		var msg2 = {Type: "subscribe", Stream: "trades", Symbol: "btcusd", Timeframe: "hrqe", Aggregation: "qrehg", Email: "ewg"}
+		var msg3 = {Type: "subscribe", Stream: "userData", Symbol: "btcusd", Timeframe: "hrqe", Aggregation: "qrehg", Email: localStorage.getItem('email')}	
 		console.log(ws)
-		ws.onopen= () => {ws.send(JSON.stringify(msg)), ws.send(JSON.stringify(msg2))}
+		ws.onopen= () => {ws.send(JSON.stringify(msg)), ws.send(JSON.stringify(msg2)), ws.send(JSON.stringify(msg3))}
 		ws.addEventListener('message', function(evt) {
 			var received_msg = evt.data;
       var parsed=JSON.parse(received_msg);

@@ -9,9 +9,11 @@ export default{
       var params = this.$route.params;
       var order = {Symbol:params["symbol"],Side:data.side,Ordertype:"market",Quantity:parseFloat(data.quantity),Price:1};
       let xhr = new XMLHttpRequest();
-      let url = "http://localhost:8080/order";
+      let url = "https://joshchange.website/order";
       xhr.open("POST",url,true);
       xhr.setRequestHeader("Content-Type", "application/json");
+      var s = 'Bearer ' + localStorage.getItem('access_token');
+      xhr.setRequestHeader('Authorization', s);
       var data = JSON.stringify(order);
       console.log(data)
       xhr.send(data);

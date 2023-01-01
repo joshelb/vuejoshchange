@@ -32,11 +32,12 @@ router.beforeEach((to, from, next) => {
 		auth.parseHash((err, authResult) => {
 			console.log(authResult)
 			if (authResult && authResult.accessToken && authResult.idToken) {
-				console.log("hi")
 				let expiresAt = JSON.stringify(authResult.expiresIn * 1000 + new Date().getTime());
 				localStorage.setItem('access_token', authResult.accessToken);
 				localStorage.setItem('id_token', authResult.idToken);
 				localStorage.setItem('expires_at', expiresAt);
+				localStorage.setItem('email', authResult.idTokenPayload["name"]);
+
 
 
 				router.replace('/');
@@ -77,6 +78,6 @@ router.beforeEach((to, from, next) => {
 var app = createApp(App);
 app.use(router);
 app.use(plugin, defaultConfig);
-var ws = new WebSocket("ws://localhost:8080/orderbook/btcusd");
+var ws = new WebSocket("wss://joshchange.website/wsdata");
 app.provide('ws', ws)
 app.mount('#app')

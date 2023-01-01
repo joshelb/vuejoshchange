@@ -6,6 +6,7 @@ import Topbarmenu from "./components/Navbar.vue";
 import ChartTV from "./components/ChartTV.vue";
 import TradingPanel from "./components/Tradingpanel.vue"
 import Trades from "./components/Trades.vue"
+import Orders from "./components/Orders.vue"
 export default {
 name: 'Trade',
   components: {
@@ -13,6 +14,7 @@ name: 'Trade',
 		Topbarmenu,
 		ChartTV,
     TradingPanel,
+		Orders,
 		Trades,
   },
 
@@ -41,6 +43,7 @@ name: 'Trade',
 				<TradingPanel/>
 			</div>
 			<div class="col-md">
+				<Orders/>
 			</div>
 		</div>
 </div>
