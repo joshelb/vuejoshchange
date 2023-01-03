@@ -65,10 +65,11 @@ export default {
 	},
 	mounted (){
     var ref = this;
+	var params = this.$route.params;
     var ws = this.ws;
-		var msg = {Type: "subscribe", Stream: "orderbook", Symbol: "btcusd", Timeframe: "hrqe", Aggregation: "qrehg", Email: "ewg"}
-		var msg2 = {Type: "subscribe", Stream: "trades", Symbol: "btcusd", Timeframe: "hrqe", Aggregation: "qrehg", Email: "ewg"}
-		var msg3 = {Type: "subscribe", Stream: "userData", Symbol: "btcusd", Timeframe: "hrqe", Aggregation: "qrehg", Email: localStorage.getItem('email')}	
+		var msg = {Type: "subscribe", Stream: "orderbook", Symbol: params["symbol"], Timeframe: "hrqe", Aggregation: "qrehg", Email: "ewg"}
+		var msg2 = {Type: "subscribe", Stream: "trades", Symbol: params["symbol"], Timeframe: "hrqe", Aggregation: "qrehg", Email: "ewg"}
+		var msg3 = {Type: "subscribe", Stream: "userData", Symbol: params["symbol"], Timeframe: "hrqe", Aggregation: "qrehg", Email: localStorage.getItem('email')}	
 		console.log(ws)
 		ws.onopen= () => {ws.send(JSON.stringify(msg)), ws.send(JSON.stringify(msg2)), ws.send(JSON.stringify(msg3))}
 		ws.addEventListener('message', function(evt) {

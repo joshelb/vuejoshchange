@@ -8,6 +8,8 @@
 	<label class="btn btn-dark btn-sm" for="option2">Market</label>
 </div>
   <div class="card-body" style="background-color: #404040;">
+		<div class="row">
+			<div class="col">
 		<div class="container" v-if="type == 'limit'" id="orderforms">
 			<Limit/>
 		</div>
@@ -15,22 +17,31 @@
       <Market/>
   	</div>
 	</div>
+	<div class="col">
+		<WalletInfo/>
+	</div>
+	</div>
+	</div>
+</div>
 </div>
 
 
 
-</div>
+
+
 
 </template>
 <script>
 
 import Limit from "./Limit.vue";
 import Market from "./Market.vue";
+import WalletInfo from "./WalletInfo.vue";
 export default {
   name: 'Trade',
   components: {
     Limit,
 		Market,
+	WalletInfo,
   },
 	data() {
       return {

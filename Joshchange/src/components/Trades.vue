@@ -72,11 +72,12 @@ export default {
 				}
 				const grid = [];
     		for (let i = 0; i < data.length; i++) {
-      		var quantity = data[i][1];
-					var price = data[i][2];
-					var side = data[i][3];
-					var timestamp = data[i][0];
-      		var row = {index: i, timestamp: timestamp ,quantity: quantity,price: price, side: side};
+      		var quantity = data[i][2];
+					var index = data[i][0]
+					var price = data[i][3];
+					var side = data[i][1];
+					var timestamp = data[i][4];
+      		var row = {index: index, timestamp: timestamp ,quantity: quantity,price: price, side: side};
       		grid.push(row);
     		}
 				var params = {};
