@@ -1,7 +1,7 @@
 <template>
 <nav class="navbar navbar-expand-lg bg-dark">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">
+    <a class="navbar-brand" href="/">
     <img src="/src/assets/logo.jpg" style="width: 200px;">
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -31,6 +31,7 @@
         </li>
       </ul>
     </div>
+    <a class="nav-link" href="/profile" style="color: grey;" >Profile</a>
   </div>
 </nav>
 </template>

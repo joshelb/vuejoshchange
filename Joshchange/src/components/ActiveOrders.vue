@@ -1,7 +1,7 @@
 <template>
   <ag-grid-vue
     id = "activeorders"
-    style="width: 100%; height: 250px;"
+    style="width: 100%; height: 570px;"
     class="ag-theme-balham-dark"
     :columnDefs="columnDefs"
 		@grid-ready="onGridReady"
