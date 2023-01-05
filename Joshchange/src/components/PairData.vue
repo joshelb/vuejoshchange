@@ -70,8 +70,8 @@ data () {
 },
 methods: {
     setVolumeData(data) {
-        this.hvol = data[this.symbols];
-        this.dvol = data[this.symbols];
+        this.hvol = data["tradeHistory"+(this.symbol1+this.symbol2)][0];
+        this.dvol = data["tradeHistory"+(this.symbol1+this.symbol2)][1];
     }
 },
 mounted () {
@@ -87,7 +87,7 @@ mounted () {
     ws.addEventListener('message', function(evt) {
 		var received_msg = evt.data;
         var parsed=JSON.parse(received_msg);
-        if (parsed["Stream"] == "volData") {
+        if (parsed["Stream"] == "pairData") {
             console.log(parsed["Data"])
             ref.setVolumeData(parsed["Data"])
         }

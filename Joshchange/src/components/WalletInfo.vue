@@ -122,7 +122,6 @@ export default{
 		    var received_msg = evt.data;
             var parsed=JSON.parse(received_msg);
             if (parsed["Stream"] == "userData") {
-                console.log(parsed["Data"])
                 ref.setWalletBalance(parsed["Data"])
             }
 		});
