@@ -71,8 +71,9 @@ export default {
 		var msg2 = {Type: "subscribe", Stream: "trades", Symbol: params["symbol"], Timeframe: "hrqe", Aggregation: "qrehg", Email: "ewg"}
 		var msg3 = {Type: "subscribe", Stream: "userData", Symbol: params["symbol"], Timeframe: "hrqe", Aggregation: "qrehg", Email: localStorage.getItem('email')}	
 		var msg4 = {Type: "subscribe", Stream: "pairData", Symbol: params["symbol"], Timeframe: "hrqe", Aggregation: "qrehg", Email: "ewg"} 
+		var msg5 = {Type: "subscribe", Stream: "candlesticks", Symbol: params["symbol"], Timeframe: "hrqe", Aggregation: "qrehg", Email: "ewg"}  
 		console.log(ws)
-		ws.onopen= () => {ws.send(JSON.stringify(msg)), ws.send(JSON.stringify(msg2)), ws.send(JSON.stringify(msg3)), ws.send(JSON.stringify(msg4))}
+		ws.onopen= () => {ws.send(JSON.stringify(msg)), ws.send(JSON.stringify(msg2)), ws.send(JSON.stringify(msg3)), ws.send(JSON.stringify(msg4)), ws.send(JSON.stringify(msg5))}
 		ws.addEventListener('message', function(evt) {
 			var received_msg = evt.data;
       var parsed=JSON.parse(received_msg);

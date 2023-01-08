@@ -88,7 +88,6 @@ mounted () {
 		var received_msg = evt.data;
         var parsed=JSON.parse(received_msg);
         if (parsed["Stream"] == "pairData") {
-            console.log(parsed["Data"])
             ref.setVolumeData(parsed["Data"])
         }
     });

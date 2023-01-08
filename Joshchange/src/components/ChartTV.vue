@@ -1,11 +1,32 @@
 <script setup>
-    import { onUnmounted, onMounted, ref } from 'vue';
+    import { onUnmounted, onMounted, ref, inject } from 'vue';
     import { createChart } from 'lightweight-charts';
+	const ws = inject('ws');
 
     let chart;
     const chartContainer = ref();
 
     onMounted(() => {
+        var ref = this;
+        ws.addEventListener('message', function(evt) {
+		    var received_msg = evt.data;
+            var parsed=JSON.parse(received_msg);
+            if (parsed["Stream"] == "candlesticks") {
+                const candlestickSeries = chart.addCandlestickSeries();
+                var data = parsed["data"];
+                var neww = [];
+                for(let i; i < (data).length; i++) {
+                var props= [
+                    ["time", "open", "high", "low", "close"],
+                    [data[0], data[1], data[2], data[3], data[4]]
+                ];    
+                var obj = Object.fromEntries(props);
+                
+                }
+                candlestickSeries.setData();
+                console.log(parsed["Data"])
+            }
+        });
 				const chartOptions = { height: 466 , width: 900, layout: { textColor: '#71649C', background: { type: 'solid', color: '#212529' } }, grid: {
             vertLines: { color: 'transparent' },
             horzLines: { color: 'transparent' },
