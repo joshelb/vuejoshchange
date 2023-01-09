@@ -19,17 +19,18 @@
 				chart.timeScale().applyOptions({
     			borderColor: '#71649C',
 				});
+        const candlestickSeries = chart.addCandlestickSeries();
         ws.addEventListener('message', function(evt) {
 		    var received_msg = evt.data;
             var parsed=JSON.parse(received_msg);
-            if (parsed["Stream"] == "candlesticks") {
-                const candlestickSeries = chart.addCandlestickSeries();
+            
+            if (parsed["Stream"] == "candlesticksInit") {
                 var data = parsed["Data"];
                 var neww = [];
-                data = data[4]
+                data = data[0];
                 for(let i = 0; i < data.length; i++) {
-                    var time = new Date(data[i][0])
-                    var stamp =  Math.floor(time.getTime() / 1000)
+                    var time = new Date(data[i][0]);
+                    var stamp =  Math.floor(time.getTime() / 1000);
                     
                 var props= [
                     ["time",stamp],
@@ -42,10 +43,24 @@
                 
                 neww.push(obj);
                 }
-                console.log(neww)
-                console.log(obj)
                 candlestickSeries.setData(neww);
-                
+            }
+            if (parsed["Stream"] == "candlesticks") {
+                var data = parsed["Data"];
+                data = data[0];    
+                var time = new Date(data[0][0]);
+                console.log(time)
+                var stamp =  Math.floor(time.getTime() / 1000);
+                var props= [
+                    ["time",stamp],
+                    ["open",data[0][1]],
+                    ["high",data[0][2]],
+                    ["low",data[0][3]],
+                    ["close",data[0][4]]
+                ];    
+                var obj = Object.fromEntries(props);
+                console.log(obj)
+                candlestickSeries.update(obj);
             }
         });
 
