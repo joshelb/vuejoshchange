@@ -11,15 +11,23 @@
         const chartOptions = { height: 466 , width: 900, layout: { textColor: '#71649C', background: { type: 'solid', color: '#212529' } }, grid: {
             vertLines: { color: 'transparent' },
             horzLines: { color: 'transparent' },
+        },        
+            timeScale: {
+            timeVisible: true,
+            secondsVisible: false,
         }, };
         chart = createChart(chartContainer.value,chartOptions);
 				chart.priceScale().applyOptions({
     			borderColor: '#71649C',
 				});
 				chart.timeScale().applyOptions({
+                barSpacing: 1,
     			borderColor: '#71649C',
 				});
-        const candlestickSeries = chart.addCandlestickSeries();
+        const candlestickSeries = chart.addCandlestickSeries({
+              fillUpCandle: true,
+            fillDownCandle: true
+            });
         ws.addEventListener('message', function(evt) {
 		    var received_msg = evt.data;
             var parsed=JSON.parse(received_msg);
@@ -28,12 +36,12 @@
                 var data = parsed["Data"];
                 var neww = [];
                 data = data[0];
+                console.log(data)
                 for(let i = 0; i < data.length; i++) {
-                    var time = new Date(data[i][0]);
-                    var stamp =  Math.floor(time.getTime() / 1000);
-                    
+                var times =  parseInt(data[i][0]);
+                var date = new Date(times * 1000);
                 var props= [
-                    ["time",stamp],
+                    ["time",times],
                     ["open",data[i][1]],
                     ["high",data[i][2]],
                     ["low",data[i][3]],
@@ -48,11 +56,10 @@
             if (parsed["Stream"] == "candlesticks") {
                 var data = parsed["Data"];
                 data = data[0];    
-                var time = new Date(data[0][0]);
-                console.log(time)
-                var stamp =  Math.floor(time.getTime() / 1000);
+                var times =  parseInt(data[0][0]);
+                var date = new Date(times * 1000);
                 var props= [
-                    ["time",stamp],
+                    ["time",times],
                     ["open",data[0][1]],
                     ["high",data[0][2]],
                     ["low",data[0][3]],
