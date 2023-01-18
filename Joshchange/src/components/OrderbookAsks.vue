@@ -67,6 +67,7 @@ export default {
     var ref = this;
 	var params = this.$route.params;
     var ws = this.ws;
+	
 		var msg = {Type: "subscribe", Stream: "orderbook", Symbol: params["symbol"], Timeframe: "hrqe", Aggregation: "qrehg", Email: "ewg"}
 		var msg2 = {Type: "subscribe", Stream: "trades", Symbol: params["symbol"], Timeframe: "hrqe", Aggregation: "qrehg", Email: "ewg"}
 		var msg3 = {Type: "subscribe", Stream: "userData", Symbol: params["symbol"], Timeframe: "hrqe", Aggregation: "qrehg", Email: localStorage.getItem('email')}	
@@ -75,6 +76,7 @@ export default {
 		var msg6 = {Type: "subscribe", Stream: "candlesticks", Symbol: params["symbol"], Timeframe: "hrqe", Aggregation: "qrehg", Email: "ewg"}
 		console.log(ws)
 		ws.onopen= () => {ws.send(JSON.stringify(msg)), ws.send(JSON.stringify(msg2)), ws.send(JSON.stringify(msg3)), ws.send(JSON.stringify(msg4)), ws.send(JSON.stringify(msg5)), ws.send(JSON.stringify(msg6))}
+		
 		ws.addEventListener('message', function(evt) {
 			var received_msg = evt.data;
       var parsed=JSON.parse(received_msg);

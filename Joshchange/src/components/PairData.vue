@@ -70,8 +70,8 @@ data () {
 },
 methods: {
     setVolumeData(data) {
-        this.hvol = data["tradeHistory"+(this.symbol1+this.symbol2)][0];
-        this.dvol = data["tradeHistory"+(this.symbol1+this.symbol2)][1];
+        this.hvol = data["tradeHistory"+(this.symbol1+"_"+this.symbol2)][0];
+        this.dvol = data["tradeHistory"+(this.symbol1+"_"+this.symbol2)][1];
     }
 },
 mounted () {

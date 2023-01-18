@@ -23,3 +23,10 @@ function isAuthenticated() {
     var expiresAt = JSON.parse(localStorage.getItem('expires_at'));
     return new Date().getTime() < expiresAt;
 }
+
+
+export function logouthelp() {
+  localStorage.removeItem('access_token');
+  localStorage.removeItem('id_token');
+  localStorage.removeItem('expires_at');
+} 

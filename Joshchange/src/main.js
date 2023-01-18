@@ -1,7 +1,9 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import Trade from './Trade.vue'
+import Base from './Base.vue'
 import Login from './components/Login.vue'
+import Markets from './Markets.vue'
 import auth0 from 'auth0-js';
 import auth from './authconf'
 import Callback from './components/Callback.vue'
@@ -10,13 +12,17 @@ import { plugin, defaultConfig } from '@formkit/vue'
 //import { config } from './authconf'
 
 
+
 import './assets/main.css'
 import "bootstrap/dist/css/bootstrap.css"
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+import 'bootstrap/dist/js/bootstrap.min.js'
+//import 'jquery/src/jquery.js'
 
 
 const routes = [
-	{ path: "/", component: App, name:'Base', meta: {requiresAuth: false}},
+	{ path: "/", component: Base, name:'Base', meta: {requiresAuth: false}},
+	{ path: "/markets", component: Markets, name:'Markets', meta: {requiresAuth: false}},
 	{ path: "/trade/:symbol", component: Trade, name:'Trade', meta: {requiresAuth: true} },			
 	{ path: "/login", component: Login, name:'Login', meta: {requiresAuth: false}},
 	{ path: "/callback", component: Callback, name:'Callback', meta: {requiresAuth: false}},
