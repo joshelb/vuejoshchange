@@ -4,6 +4,7 @@ import Trade from './Trade.vue'
 import Base from './Base.vue'
 import Login from './components/Login.vue'
 import Markets from './Markets.vue'
+import Wallet from './Wallet.vue'
 import auth0 from 'auth0-js';
 import auth from './authconf'
 import Callback from './components/Callback.vue'
@@ -22,6 +23,7 @@ import 'bootstrap/dist/js/bootstrap.min.js'
 
 const routes = [
 	{ path: "/", component: Base, name:'Base', meta: {requiresAuth: false}},
+		{ path: "/wallet", component: Wallet, name:'Wallet', meta: {requiresAuth: true}},
 	{ path: "/markets", component: Markets, name:'Markets', meta: {requiresAuth: false}},
 	{ path: "/trade/:symbol", component: Trade, name:'Trade', meta: {requiresAuth: true} },			
 	{ path: "/login", component: Login, name:'Login', meta: {requiresAuth: false}},
@@ -50,7 +52,7 @@ router.beforeEach((to, from, next) => {
 			} 
 			else if (err) {
 				console.log("lmao")
-				router.replace('/login');
+				router.replace('/');
 				console.log(err);
 			} 	
 		});		
@@ -68,7 +70,7 @@ router.beforeEach((to, from, next) => {
 		if (isAuthenticated) {
 			next();
 		} else {
-			router.replace("/login");
+			router.replace("/");
 		}
 	} else {
 		next();

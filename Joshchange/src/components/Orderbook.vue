@@ -32,6 +32,7 @@ export default {
     }
 			},
         { field: "price", cellStyle: {color: 'green',}},
+        { field: "index", cellStyle: {color: 'green',}},
       ],
       gridApi: null,
       columnApi: null,
@@ -48,10 +49,13 @@ export default {
 		setOrderbookData(data) {
 				const rowDataBids = [];
     		const bids = data["bids"]["prices"];
+        var index = 0;
+        console.log(bids)
     		for (var key in bids) {
       		var quantity = bids[key]["volume"];
-      		var row = {bids: quantity,price: key};
+      		var row = {index: index,bids: quantity,price: parseFloat(key)};
       		rowDataBids.push(row);
+          index +=1;
     		}
 				var params = {};
 				this.gridApi.setRowData(rowDataBids.reverse());
