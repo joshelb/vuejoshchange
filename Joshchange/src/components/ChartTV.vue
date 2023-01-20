@@ -15,7 +15,9 @@
             timeScale: {
             timeVisible: true,
             secondsVisible: false,
-        }, };
+        }, 
+        };
+
         chart = createChart(chartContainer.value,chartOptions);
 				chart.priceScale().applyOptions({
     			borderColor: '#71649C',
@@ -26,8 +28,14 @@
 				});
         const candlestickSeries = chart.addCandlestickSeries({
               fillUpCandle: true,
-            fillDownCandle: true
-            });
+            fillDownCandle: true,
+            priceFormat: {
+                type: 'price',
+                precision: 6,
+                minMove: 0.000001,
+            },
+        }
+        );
         ws.addEventListener('message', function(evt) {
 		    var received_msg = evt.data;
             var parsed=JSON.parse(received_msg);
