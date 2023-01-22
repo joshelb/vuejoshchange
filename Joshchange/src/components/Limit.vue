@@ -1,5 +1,7 @@
 <script>
 import auth from "../authconf.js"
+import swal from 'sweetalert';
+
 export default{ 
   methods: {
     submitForm(side) {
@@ -14,11 +16,16 @@ export default{
       xhr.open("POST",url,true);
       xhr.setRequestHeader("Content-Type", "application/json");
 			var s = 'Bearer ' + localStorage.getItem('access_token')
-			console.log(s)
 			xhr.setRequestHeader('Authorization', s);
       var data = JSON.stringify(order);
-      console.log(data)
       xhr.send(data);
+
+      xhr.onload = function() {
+        console.log(xhr.response)
+        if (xhr.response != "") {
+          swal("Oops!",`${xhr.response}`, "error");
+        }
+      };
     }
 
 
@@ -46,6 +53,8 @@ export default{
     name = "quantity"
     id = "quantity"
     label = "Size"
+    validation="number"
+    validation-visibility="live"
   />
 
   <FormKit
@@ -53,6 +62,8 @@ export default{
     name = "price"
     id = "price"
     label = "Price"
+    validation="number"
+    validation-visibility="live"
   />
   <FormKit
     name="side"

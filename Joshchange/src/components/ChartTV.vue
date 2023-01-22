@@ -44,7 +44,6 @@
                 var data = parsed["Data"];
                 var neww = [];
                 data = data[0];
-                console.log(data)
                 for(let i = 0; i < data.length; i++) {
                 var times =  parseInt(data[i][0]);
                 var date = new Date(times * 1000);
@@ -74,7 +73,6 @@
                     ["close",data[0][4]]
                 ];    
                 var obj = Object.fromEntries(props);
-                console.log(obj)
                 candlestickSeries.update(obj);
             }
         });

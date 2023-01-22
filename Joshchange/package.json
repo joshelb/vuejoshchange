@@ -30,6 +30,7 @@
     "jquery": "^3.6.3",
     "lightweight-charts": "^3.8.0",
     "mdb-vue-ui-kit": "^3.1.1",
+    "sweetalert": "^2.1.2",
     "trading-vue-js": "^1.0.2",
     "vue": "^3.2.45",
     "vue-apexcharts": "^1.6.2",

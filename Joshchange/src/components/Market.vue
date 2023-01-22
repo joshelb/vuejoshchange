@@ -17,6 +17,13 @@ export default{
       var data = JSON.stringify(order);
       console.log(data)
       xhr.send(data);
+
+        xhr.onload = function() {
+        console.log(xhr.response)
+        if (xhr.response != "") {
+          swal("Oops!",`${xhr.response}`, "error");
+        }
+      };
     }
 
 
@@ -39,6 +46,8 @@ export default{
     name = "quantity"
     id = "quantity"
     label = "Size"
+    validation="number"
+    validation-visibility="live"
   />
 
   <FormKit
@@ -53,3 +62,10 @@ export default{
 <button type = 'button' @click='submitForm("sell")' class="btn btn-danger" style=" --bs-btn-padding-y: .50rem; --bs-btn-padding-x: .50rem; --bs-btn-font-size: .75rem; width:100px; border-radius: 0px!important;">Sell</button>
 
 </template>
+<style>
+.swal-modal {
+  background-color: red;
+  border: 3px solid white;
+}
+
+</style>
