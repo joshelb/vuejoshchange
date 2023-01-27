@@ -1,19 +1,20 @@
 <template> 
-<div class="sidebar">
-<div class="card text-bg-dark" style="border-radius: 0px!important;">
+<div class="sidebar" style="height:100%;"  >
+<div class="card text-bg-dark" style=" height:100%; border-radius: 0px!important;">
 <div class="card-header">
 	<input type="radio" class="btn-check" name="options" id="option1" autocomplete="off" @click="handleclick('limit')" checked>
 	<label class="btn btn-dark btn-sm" for="option1">Limit</label>
 	<input type="radio" class="btn-check" name="options" id="option2" autocomplete="off" @click="handleclick('market')">
 	<label class="btn btn-dark btn-sm" for="option2">Market</label>
 </div>
-  <div class="card-body" style="background-color: #404040;">
+	<a style="height:100%;">
+  <div class="card-body" style=" height:100%; background-color: #2d3436;">
 		<div class="row">
 			<div class="col">
-		<div class="container" v-if="type == 'limit'" id="orderforms">
+		<div class="container" style="height: 100%;" v-if="type == 'limit'" id="orderforms">
 			<Limit/>
 		</div>
-		<div class="container" v-if="type == 'market'" id="orderforms">
+		<div class="container" style="height: 100%;" v-if="type == 'market'" id="orderforms">
       <Market/>
   	</div>
 	</div>
@@ -22,6 +23,7 @@
 	</div>
 	</div>
 	</div>
+	</a>
 </div>
 </div>
 

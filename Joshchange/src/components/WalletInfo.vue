@@ -7,10 +7,10 @@
         </div>
         <div class="col">
             <div class="row">
-                AvailableBalance:
+                AvailableBalance
             </div>
             <div class="row">
-                Balance:
+                Balance
             </div>
         </div>
         <div class="col" style=" margin-left: 0px;"></div>
@@ -42,10 +42,10 @@
         </div>
         <div class="col">
             <div class="row">
-                AvailableBalance:
+                AvailableBalance
             </div>
             <div class="row">
-                Balance:
+                Balance
             </div>
         </div>
         <div class="col" style=" margin-right: 0px;"></div>
@@ -93,12 +93,12 @@ export default{
             console.log("hi")
             for (let key in data) {
                 if (this.symbol1 == key){
-                    this.availablebalance1 = data[key][0];
-                    this.balance1 = data[key][1];
+                    this.availablebalance1 = parseFloat(parseFloat(data[key][0]).toFixed(10));
+                    this.balance1 = parseFloat(parseFloat(data[key][1]).toFixed(10));
                 }
                 if (this.symbol2 == key){
-                    this.availablebalance2 = data[key][0];
-                    this.balance2 = data[key][1];
+                    this.availablebalance2 = parseFloat(parseFloat(data[key][0]).toFixed(10));
+                    this.balance2 = parseFloat(parseFloat(data[key][1]).toFixed(10));
 
                 }
             }

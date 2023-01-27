@@ -1,20 +1,6 @@
 <template>
-	<div class= "container-fluid">
-   <div class="row">
-    	<div class="col">
-				<div class="row">
-					<div class="col">
-      			<OrderBookAsks/>
-					</div>
-					<div class="col">
-      			<OrderBookBids/>
-					</div>
-				</div>
-			</div>
-		<div class= "col">
-			<Trades/>
-		</div>
-   </div>
+	<div class= "container-test" style="height: 100%;">
+      		<OrderBookAsks/>
 	</div>
 
 </template>

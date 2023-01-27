@@ -9,9 +9,13 @@ import Trades from "./components/Trades.vue"
 import Orders from "./components/Orders.vue"
 import Discord from "./components/DiscordComponent.vue"
 import PairData from "./components/PairData.vue"
+import TestX from "./components/Login.vue"
+import { GridLayout, GridItem } from "vue-grid-layout"
 export default {
 name: 'Trade',
   components: {
+		GridLayout,
+		GridItem,
 		OrderBook,
 		Topbarmenu,
 		ChartTV,
@@ -20,8 +24,18 @@ name: 'Trade',
 		Trades,
 		Discord,
 		PairData,
+		TestX,
   },
-
+  data() {
+	return {
+		layout: [
+			 {"x":0,"y":0,"w":2,"h":2,"i":"0", static: false},
+		],
+		draggable: true,
+        resizable: true,
+		index:0
+	}
+  },
 
   created () {
   }
@@ -29,35 +43,13 @@ name: 'Trade',
 </script>
 <template>
 <Topbarmenu/>
+
+
 <div class="container-fluid">
 		<div class="row top-buffer">
 			<PairData/>
 		</div>
-		<div class="row top-buffer">
-				<div class = "col-xl">
-					<OrderBook/>
-				</div>
-				<div class="col-xl">
-					<div class="card text-bg-dark" style="border-radius: 0px!important;">
-  					<div class="card-body">
-							<ChartTV/>
-  					</div>
-					</div>
-				</div>
-		</div>
-		<div class="row top-buffer">
-			<div class="col-md">
-				<div class="row">
-					<TradingPanel/>
-				</div>
-				<div class="row top-buffer">
-					<Discord/>
-				</div>
-			</div>
-			<div class="col-md">
-				<Orders/>
-			</div>
-		</div>
+		<TestX style="height:100%; width:100%;"></TestX>
 </div>
 </template>
 

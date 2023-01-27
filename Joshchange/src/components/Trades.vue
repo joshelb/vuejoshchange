@@ -1,6 +1,6 @@
 <template>
   <ag-grid-vue
-    style="height: 500px"
+    :style="{width, height}"
     class="ag-theme-balham-dark"
     :columnDefs="columnDefs"
 		@grid-ready="onGridReady"
@@ -25,6 +25,8 @@ export default {
   },
   setup() {
     return {
+		height: '100%',
+      width: '100%',
       columnDefs: [
 				{ field: "index"},
         { field: "timestamp", headerName: 'Time', cellStyle: {color: 'orange',}},
@@ -51,6 +53,9 @@ export default {
     };
   },
 	methods: {
+		getApi(){
+			return this.gridApi;
+		},
 		coloring(value) {
       if (value =='buy') {
         return { color:'green' };
@@ -73,11 +78,16 @@ export default {
 				const grid = [];
     		for (let i = 0; i < data.length; i++) {
       		var quantity = data[i][2];
-					var index = data[i][0]
+					var index = data[i][0];
 					var price = data[i][3];
 					var side = data[i][1];
 					var timestamp = data[i][4];
-      		var row = {index: index, timestamp: timestamp ,quantity: quantity,price: price, side: side};
+					timestamp = new Date(timestamp * 1000);
+					var hours = timestamp.getHours();
+					var minutes = "0" + timestamp.getMinutes();
+					var seconds = "0" + timestamp.getSeconds();
+					timestamp = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
+      		var row = {index: index, timestamp: timestamp ,quantity: parseFloat(parseFloat(quantity).toFixed(10)),price: parseFloat(parseFloat(price).toFixed(10)), side: side};
       		grid.push(row);
     		}
 				var params = {};
@@ -104,6 +114,7 @@ export default {
 			}
 		});
 		window.addEventListener('resize', this.onWindowResize);
+		setInterval(ref.onWindowResize,100);
 
 	}
 };

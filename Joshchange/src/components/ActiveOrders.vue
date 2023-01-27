@@ -1,7 +1,7 @@
 <template>
   <ag-grid-vue
     id = "activeorders"
-    style="width: 100%; height: 570px;"
+    :style="{width, height}"
     class="ag-theme-balham-dark"
     :columnDefs="columnDefs"
 		@grid-ready="onGridReady"
@@ -30,8 +30,10 @@ export default {
   },
   setup() {
     return {
+      height: '100%',
+      width: '100%',
       columnDefs: [
-				{ field: "index", cellRenderer: "btnCellRenderer", cellRendererParams: { 
+				{ field: "index", headerName: '',cellRenderer: "btnCellRenderer", cellRendererParams: { 
           clicked(field) {
             alert(`${field} was clicked`);
           }
@@ -63,6 +65,8 @@ export default {
 		onGridReady(params){
 		  this.gridApi = params.api;
       this.gridColumnApi = params.columnApi;
+      this.gridColumnApi.setColumnVisible('orderid', false)
+      this.gridColumnApi.setColumnVisible('timestamp', false)
 			this.gridApi.sizeColumnsToFit()
 			params.api.setRowData([]);
 		},
@@ -74,12 +78,12 @@ export default {
         const grid = [];
         for (let i = 0; i < data.length; i++) {
           var index = data[i][0];
-          var orderid = data[i][0]
+          var orderid = data[i][0];
           var timestamp = data[i][5];  
           var quantity = data[i][3];   
           var price = data[i][4];
           var side = data[i][2];
-          var row = {index: index, orderid: orderid, timestamp: timestamp ,quantity: quantity,price: price, side: side};
+          var row = {index: index, orderid: orderid, timestamp: timestamp ,quantity: parseFloat(parseFloat(quantity).toFixed(10)),price: parseFloat(parseFloat(price).toFixed(10)), side: side};
           grid.push(row);
         }
         this.gridApi.setRowData(grid);
@@ -107,6 +111,7 @@ export default {
     var ws = this.ws;
     ws.addEventListener('message', this.msgHandler);
 		window.addEventListener('resize', this.onWindowResize);
+    		setInterval(ref.onWindowResize,100);
 	},
   beforeUnmount() {
     console.log("ALLAH IS GREAT")

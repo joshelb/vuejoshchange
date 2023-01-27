@@ -1,0 +1,25 @@
+		<div class="row top-buffer">
+				<div class = "col-xl">
+					<OrderBook/>
+				</div>
+				<div class="col-xl">
+					<div class="card text-bg-dark" style="border-radius: 0px!important;">
+  					<div class="card-body">
+							<ChartTV/>
+  					</div>
+					</div>
+				</div>
+		</div>
+		<div class="row top-buffer">
+			<div class="col-md">
+				<div class="row">
+					<TradingPanel/>
+				</div>
+				<div class="row top-buffer">
+					<Discord/>
+				</div>
+			</div>
+			<div class="col-md">
+				<Orders/>
+			</div>
+		</div>

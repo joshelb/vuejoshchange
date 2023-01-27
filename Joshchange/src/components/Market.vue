@@ -9,7 +9,7 @@ export default{
       var params = this.$route.params;
       var order = {Symbol:params["symbol"],Side:data.side,Ordertype:"market",Quantity:parseFloat(data.quantity),Price:1};
       let xhr = new XMLHttpRequest();
-      let url = "https://joshchange.website/order";
+      let url = "https://www.joshchange.website/order";
       xhr.open("POST",url,true);
       xhr.setRequestHeader("Content-Type", "application/json");
       var s = 'Bearer ' + localStorage.getItem('access_token');
@@ -58,8 +58,8 @@ export default{
   />
 </FormKit>
 
-<button type = 'button' @click='submitForm("buy")' class="btn btn-success" style=" --bs-btn-padding-y: .50rem; --bs-btn-padding-x: .50rem; --bs-btn-font-size: .75rem; width:100px; border-radius: 0px!important;">Buy</button>
-<button type = 'button' @click='submitForm("sell")' class="btn btn-danger" style=" --bs-btn-padding-y: .50rem; --bs-btn-padding-x: .50rem; --bs-btn-font-size: .75rem; width:100px; border-radius: 0px!important;">Sell</button>
+<button type = 'button' @click='submitForm("buy")' class="btn btn-success" style=" margin-top: 20px; margin-right: 15px; --bs-btn-padding-y: .50rem; --bs-btn-padding-x: .50rem; --bs-btn-font-size: .75rem; width:100px; border-radius: 0px!important;">Buy</button>
+<button type = 'button' @click='submitForm("sell")' class="btn btn-danger" style=" margin-top: 20px; --bs-btn-padding-y: .50rem; --bs-btn-padding-x: .50rem; --bs-btn-font-size: .75rem; width:100px; border-radius: 0px!important;">Sell</button>
 
 </template>
 <style>

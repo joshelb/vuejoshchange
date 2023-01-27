@@ -1,14 +1,14 @@
 <script setup>
-    import { onUnmounted, onMounted, ref, inject } from 'vue';
+    import { onUnmounted, onMounted, ref, inject} from 'vue';
     import { createChart } from 'lightweight-charts';
+    import ResizeSensor from "resize-sensor";
 	const ws = inject('ws');
-
-    let chart;
     const chartContainer = ref();
+    let chart;
 
     onMounted(() => {
         var ref = this;
-        const chartOptions = { height: 466 , width: 900, layout: { textColor: '#71649C', background: { type: 'solid', color: '#212529' } }, grid: {
+        const chartOptions = { height: 0, width: 0,layout: { textColor: '#71649C', background: { type: 'solid', color: '#2d3436' } }, grid: {
             vertLines: { color: 'transparent' },
             horzLines: { color: 'transparent' },
         },        
@@ -17,15 +17,14 @@
             secondsVisible: false,
         }, 
         };
-
         chart = createChart(chartContainer.value,chartOptions);
-				chart.priceScale().applyOptions({
+        		chart.priceScale().applyOptions({
     			borderColor: '#71649C',
 				});
 				chart.timeScale().applyOptions({
                 barSpacing: 1,
     			borderColor: '#71649C',
-				});
+				})
         const candlestickSeries = chart.addCandlestickSeries({
               fillUpCandle: true,
             fillDownCandle: true,
@@ -36,6 +35,9 @@
             },
         }
         );
+        new ResizeSensor(document.getElementsByClassName('lw-chart'), event => {
+            chart.resize(document.getElementById("charttv").offsetWidth, document.getElementById("charttv").offsetHeight)
+        })
         ws.addEventListener('message', function(evt) {
 		    var received_msg = evt.data;
             var parsed=JSON.parse(received_msg);
@@ -91,10 +93,18 @@
 
 </script>
 <template>
-    <div class="lw-chart" ref="chartContainer"></div>
+    <div style="height:100%;">
+    <div class="card-header bg-dark" style="color:azure;">
+        Chart
+    </div>
+    <a>
+    <div class="lw-chart" id="charttv"  ref="chartContainer"></div>
+    </a>
+    </div>
 </template>
 <style scoped>
     .lw-chart {
-        height: 100%;
+        height: 90%;
+        width: 100%;
     }
 </style>

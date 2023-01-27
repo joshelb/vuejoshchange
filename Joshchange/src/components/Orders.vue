@@ -1,6 +1,6 @@
 <template> 
-<div class="sidebar">
-<div class="card text-bg-dark" style="border-radius: 0px!important;">
+<div class="sidebar" style="height: 100%;">
+<div class="card text-bg-dark" style="height:100%;  border-radius: 0px!important;">
 <div class="card-header">
 	<input type="radio" class="btn-check" name="options" id="option3" autocomplete="off" @click="handle('active')" checked>
 	<label class="btn btn-dark btn-sm" for="option3">Active-Orders</label>
@@ -9,17 +9,21 @@
     <input type="radio" class="btn-check" name="options" id="option5" autocomplete="off" @click="handle('tradehistory')">
 	<label class="btn btn-dark btn-sm" for="option5">Trade-History</label>
 </div>
-  <div class="card-body" style="background-color: #404040;">
-		<div class="container" v-if="type == 'active'" id="orderforms">
+  <a style="height:100%;">
+  <div class="card-body" style="height:100%; background-color: #2d3436;">
+    
+		<div class="container" style="height:100%;"  v-if="type == 'active'" id="orderforms">
             <ActiveOrders/>
 		</div>
-		<div class="container" v-if="type == 'history'" id="orderforms">
+		<div class="container" style="height:100%;" v-if="type == 'history'" id="orderforms">
             <OrderHistory/>
   	</div>
-    <div class="container" v-if="type == 'tradehistory'" id="orderforms">
+    <div class="container" style="height:100%;" v-if="type == 'tradehistory'" id="orderforms">
             <TradeHistory/>
 		</div>
+    
 	</div>
+  </a>
 </div>
 
 

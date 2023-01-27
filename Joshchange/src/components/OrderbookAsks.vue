@@ -1,6 +1,8 @@
 <template>
+	<div id="myGridasks" style="height:100%">
   <ag-grid-vue
-    style="height: 500px"
+	id="asks"
+	:style="{width, height}"
     class="ag-theme-balham-dark"
     :columnDefs="columnDefs"
 		@grid-ready="onGridReady"
@@ -8,6 +10,7 @@
     :getRowId="getRowId"
   >
   </ag-grid-vue>
+  </div>
 </template>
 
 <script>
@@ -15,7 +18,9 @@ import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-balham.css";
 import axios from 'axios';
 import { AgGridVue } from "ag-grid-vue3";
-import { Logger } from "ag-grid-community";
+import { Logger, RowHighlightPosition } from "ag-grid-community";
+import ResizeSensor from "resize-sensor";
+import { time } from "@formkit/inputs";
 
 export default {
 	inject: ['ws'],
@@ -25,8 +30,10 @@ export default {
   },
   setup() {
     return {
+		height: '100%',
+      width: '100%',
       columnDefs: [
-        { field: "asks", headerName: 'Size'},
+        { field: "asks", headerName: 'Size',enableCellChangeFlash:true},
         { field: "price", cellStyle: {color: 'red',},  headerName: 'Price'},
       ],
       gridApi: null,
@@ -36,8 +43,12 @@ export default {
     };
   },
 	methods: {
+		getApi(){
+			return this.gridApi;
+		},
 		onGridReady(params){
 		  this.gridApi = params.api;
+		  
       this.gridColumnApi = params.columnApi;
 			this.gridApi.sizeColumnsToFit()
 			params.api.setRowData([]);
@@ -50,12 +61,16 @@ export default {
       		var row = {asks: quantity,price: key};
       		rowDataAsks.push(row);
     		}
+			rowDataAsks.sort((a, b) => {
+          		return a.price - b.price;
+        	});
 				var params = {};
 				this.gridApi.setRowData(rowDataAsks);
 		},
 		onWindowResize() {
     	if (this.gridApi) {
       	this.gridApi.sizeColumnsToFit();
+
     	}
 		}
 
@@ -85,6 +100,13 @@ export default {
       }
 		});
 		window.addEventListener('resize', this.onWindowResize);
+		var container = document.getElementById("all");
+		console.log(container)
+		var sensor = new ResizeSensor(container, function() {
+    		ref.onWindowResize;
+		});
+
+		setInterval(ref.onWindowResize,100);
 
 	}
 };

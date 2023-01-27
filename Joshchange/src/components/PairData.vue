@@ -8,23 +8,23 @@
         <img id="iconAsset3" src="" width="40" height="40">
     </div>
     <div class="col">
-        {{ symbol1 }}/{{ symbol2 }}
+        <a><h3>{{ symbol1 }}</h3><a style="color:gray;">/{{ symbol2 }}</a></a>
     </div>
     <div class="col">
         <div class="row">
-            <small>24h-Change: {{ hchange }} </small>
+          <a style=""><small>24h Change </small><small id="change1">{{ hchange }} <a id="arrow"> </a> </small> <small style="color:gray;">${{ symbol2 }}</small></a>
         </div>
         <div class="row">
-            <small>7d-Change: {{ dchange }}</small>
+           <small id="change2"> {{ dchange }} %</small>
          </div>
     </div>
     <div class="col">
         <div class="row">
             
-            <small>24h-Volume({{ symbol1 }}): {{ hvol }} </small>
+            <small>24h Vol (<a style="color:gray;">{{ symbol1 }}</a>)   {{ hvol }} </small>
         </div>
         <div class="row">
-            <small>7d-Volume({{ symbol1 }}): {{ dvol }} </small>
+            <small>7d Vol(<a style="color:gray;">{{ symbol1 }}</a>)    {{ dvol }} </small>
         </div>
     </div>
     </div>
@@ -61,7 +61,8 @@ data () {
         dvol: 70000000,
         hchange: 20,
         dchange: 40,
-        previous: null,
+        previoushvol: null,
+        previousdvol: null,
 
 
     }
@@ -72,6 +73,32 @@ methods: {
     setVolumeData(data) {
         this.hvol = data["tradeHistory"+(this.symbol1+"_"+this.symbol2)][0];
         this.dvol = data["tradeHistory"+(this.symbol1+"_"+this.symbol2)][1];
+        var hchange = data["tradeHistory"+(this.symbol1+"_"+this.symbol2)][2]; 
+        var dchange = data["tradeHistory"+(this.symbol1+"_"+this.symbol2)][3];
+        var last = data["tradeHistory"+(this.symbol1+"_"+this.symbol2)][4]; 
+        console.log(hchange)
+        console.log(last)
+        if (hchange < 0) {
+            this.hchange = hchange;
+            this.dchange = dchange * 100;
+            document.getElementById("change1").style.color = "red";
+            document.getElementById("change2").style.color = "red";
+            document.getElementById("arrow").innerHTML = "&#129055";
+        }
+        if (hchange > 0){
+            this.hchange = hchange;
+            this.dchange = dchange *100;
+            document.getElementById("change1").style.color = "green";
+            document.getElementById("change2").style.color = "green";
+            document.getElementById("arrow").innerHTML = "&#129053";
+        }
+        if (hchange == 0){
+        this.hchange = hchange;
+        this.dchange = dchange *100;
+        document.getElementById("change1").style.color = "white";
+        document.getElementById("change2").style.color = "white";
+        }
+
     }
 },
 mounted () {
@@ -100,3 +127,9 @@ mounted () {
 
 }
 </script>
+
+<style>
+
+h3, h4, h5, h6 {display: inline;}
+
+</style>

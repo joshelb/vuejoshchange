@@ -12,7 +12,7 @@ export default{
       var params = this.$route.params;
       var order = {Symbol:params["symbol"],Side:data.side,Ordertype:"limit",Quantity:parseFloat(data.quantity),Price:parseFloat(data.price)};
       let xhr = new XMLHttpRequest();
-      let url = "https://joshchange.website/order";
+      let url = "https://www.joshchange.website/order";
       xhr.open("POST",url,true);
       xhr.setRequestHeader("Content-Type", "application/json");
 			var s = 'Bearer ' + localStorage.getItem('access_token')

@@ -1,10 +1,9 @@
 <template>
-    <div id="discord">
+    <div id="discord" style="height:100%;">
     <widgetbot
+    style="height:90%; width:100%;"
   server="607914897237344277"
   channel="1049047511769292930"
-  width="1000"
-  height="400"
 ></widgetbot>
 
 </div>

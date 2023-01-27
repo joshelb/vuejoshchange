@@ -1,6 +1,6 @@
 <template>
   <ag-grid-vue
-    style="height: 500px"
+    :style="{width, height}"
     class="ag-theme-balham-dark"
     :columnDefs="columnDefs"
 		@grid-ready="onGridReady"
@@ -26,13 +26,14 @@ export default {
   },
   setup() {
     return {
+      height: '100%',
+      width: '100%',
       columnDefs: [
         { field: "bids", headerName:"Size",enableCellChangeFlash:true, 
     cellClassRules: {
     }
 			},
         { field: "price", cellStyle: {color: 'green',}},
-        { field: "index", cellStyle: {color: 'green',}},
       ],
       gridApi: null,
       columnApi: null,
@@ -40,6 +41,9 @@ export default {
     };
   },
 	methods: {
+    getApi(){
+			return this.gridApi;
+		},
 		onGridReady(params){
 		  this.gridApi = params.api;
       this.gridColumnApi = params.columnApi;
@@ -49,15 +53,16 @@ export default {
 		setOrderbookData(data) {
 				const rowDataBids = [];
     		const bids = data["bids"]["prices"];
-        var index = 0;
         console.log(bids)
     		for (var key in bids) {
       		var quantity = bids[key]["volume"];
-      		var row = {index: index,bids: quantity,price: parseFloat(key)};
+      		var row = {bids: quantity,price: parseFloat(key)};
       		rowDataBids.push(row);
-          index +=1;
     		}
 				var params = {};
+        rowDataBids.sort((a, b) => {
+          return a.price - b.price;
+        });
 				this.gridApi.setRowData(rowDataBids.reverse());
 		},
     onWindowResize() {
@@ -82,6 +87,7 @@ export default {
       }			
     });
 		window.addEventListener('resize', this.onWindowResize);
+    		setInterval(ref.onWindowResize,100);
 	}
 };
 </script>

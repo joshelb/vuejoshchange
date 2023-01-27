@@ -10,6 +10,7 @@ import auth from './authconf'
 import Callback from './components/Callback.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 import { plugin, defaultConfig } from '@formkit/vue'
+ import GridLayout from 'vue3-drr-grid-layout'
 //import { config } from './authconf'
 
 
@@ -85,7 +86,8 @@ router.beforeEach((to, from, next) => {
 
 var app = createApp(App);
 app.use(router);
+app.use(GridLayout)
 app.use(plugin, defaultConfig);
-var ws = new WebSocket("wss://joshchange.website/wsdata");
+var ws = new WebSocket("wss://www.joshchange.website/wsdata");
 app.provide('ws', ws)
 app.mount('#app')
