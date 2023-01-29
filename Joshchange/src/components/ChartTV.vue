@@ -8,7 +8,7 @@
 
     onMounted(() => {
         var ref = this;
-        const chartOptions = { height: 0, width: 0,layout: { textColor: '#71649C', background: { type: 'solid', color: '#2d3436' } }, grid: {
+        const chartOptions = { height: 0, width: 0,layout: { textColor: 'white', background: { type: 'solid', color: '#2d3436' } }, grid: {
             vertLines: { color: 'transparent' },
             horzLines: { color: 'transparent' },
         },        
@@ -19,11 +19,11 @@
         };
         chart = createChart(chartContainer.value,chartOptions);
         		chart.priceScale().applyOptions({
-    			borderColor: '#71649C',
+    			borderColor: 'white',
 				});
 				chart.timeScale().applyOptions({
                 barSpacing: 1,
-    			borderColor: '#71649C',
+    			borderColor: 'white',
 				})
         const candlestickSeries = chart.addCandlestickSeries({
               fillUpCandle: true,
@@ -94,7 +94,7 @@
 </script>
 <template>
     <div style="height:100%;">
-    <div class="card-header bg-dark" style="color:azure;">
+    <div class="card-header bg-dark" style="color:white;">
         Chart
     </div>
     <a>

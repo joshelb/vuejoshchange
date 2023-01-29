@@ -33,16 +33,6 @@
 </div>
 <div class="col"> 
     <div>
-        <div class="card text-danger bg-light" style="height: 76px; width: 40rem;"> 
-            <div class="row">
-                <div class="col">     
-                    <h3>NOW 0 FEE TRADING ALL PAIRS!</h3> 
-                </div>
-                <div class="col">
-                    <img id="iconAsset4" src="" width="60" height="60">
-                </div>
-            </div>
-        </div>
     </div>
 </div>
 </div>
@@ -108,7 +98,7 @@ mounted () {
     this.symbol1 = this.symbols[0];
     this.symbol2 = this.symbols[1];
     document.getElementById("iconAsset3").src = "../src/assets/" + symbols[0] +".jpg"
-    document.getElementById("iconAsset4").src = "../src/assets/" + "JOSH" +".jpg"
+    //document.getElementById("iconAsset4").src = "../src/assets/" + "JOSH" +".jpg"
     var ws = this.ws;
     var ref = this;
     ws.addEventListener('message', function(evt) {
